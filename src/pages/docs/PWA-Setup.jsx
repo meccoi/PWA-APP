@@ -2,7 +2,7 @@ import CardCode from "../../components/cardCode";
 function pwa() {
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">React setup docs</h1>
+      {/* <h1 className="text-3xl font-bold mb-4">React setup docs</h1> */}
 
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-2">PWA Setup</h2>

@@ -12,25 +12,30 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { FaHome } from "react-icons/fa";
 import { SiAboutdotme } from "react-icons/si";
 import { CgFileDocument } from "react-icons/cg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiArrowDownWideFill } from "react-icons/ri";
 import { RiArrowUpWideFill } from "react-icons/ri";
-
+import PushToGithub from "./pages/docs/push-to-github";
+import UseRouter from "./pages/docs/use-router";
 const App = () => {
   const [isOpen, setOpen] = useState(false);
-
-  document.addEventListener("click", function (e) {
-    if (e.target.className === "bg") {
-      toggleSidebar();
-    }
-  });
-
   const [toggle, setToggle] = useState(false);
-
   const toggleSidebar = () => {
-    setToggle(!toggle);
+    setToggle((prevToggle) => !prevToggle);
   };
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (e.target.className === "bg") {
+        toggleSidebar();
+      }
+    };
 
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
   return (
     <Router>
       <div>
@@ -92,6 +97,32 @@ const App = () => {
                     PWA Setup
                   </NavLink>
                 </li>
+                <li className="w-full">
+                  <NavLink
+                    to="/pages/docs/push-to-github"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-blue-500  text-white"
+                        : "hover:text-blue-500"
+                    }
+                    style={{ paddingLeft: "56px" }}
+                  >
+                    Push to github
+                  </NavLink>
+                </li>
+                <li className="w-full">
+                  <NavLink
+                    to="/pages/docs/use-router"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-blue-500  text-white"
+                        : "hover:text-blue-500"
+                    }
+                    style={{ paddingLeft: "56px" }}
+                  >
+                    How to install router in react
+                  </NavLink>
+                </li>
               </ul>
             )}
           </ul>
@@ -102,6 +133,11 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/pages/docs/PWA-Setup" element={<PWA />} />
+            <Route
+              path="/pages/docs/push-to-github"
+              element={<PushToGithub />}
+            />
+            <Route path="/pages/docs/use-router" element={<UseRouter />} />
           </Routes>
         </div>
       </div>
